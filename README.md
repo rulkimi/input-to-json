@@ -18,7 +18,7 @@ The motivation behind this project is to provide a hands-on opportunity to apply
 
 ## How to Use
 
-1. Open the HTML file in a web browser. Follow this link: .
+1. Open the HTML file in a web browser. Or [click here](https://rulkimi.github.io/input-to-json/).
 2. Use the "Add row" button to add key-value pairs.
 3. Enter the key (object) and value for each pair.
 4. Click the "Generate JSON" button to create a JSON object.
