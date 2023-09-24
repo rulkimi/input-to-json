@@ -176,7 +176,12 @@
         return value;
       }
 
+      let isDisplayingJSON = false;
+      let copyButtonCounts = 0;
+      let pasteButtonCounts = 0;
+      
       document.getElementById('generateJson').addEventListener('click', () => {
+        isDisplayingJSON = true;
         let json = {};
         document.querySelectorAll('.row').forEach(row => {
           let object = row.querySelector('.object').value;
@@ -187,27 +192,36 @@
         });
         document.getElementById('display').innerHTML = JSON.stringify(json, null, 2);
 
-        const copyButton = document.createElement('button');
-        copyButton.classList.add('copy-button');
-        copyButton.innerHTML = 'Copy';
+        const copyButtonExists = document.getElementById('copyButton');
+        const pasteInputExists = document.getElementById('pasteInput');
 
-        document.querySelector('.display-box').appendChild(copyButton);
+        if(!copyButtonExists && copyButtonCounts < 1) {
+          copyButtonCounts++;
+          const copyButton = document.createElement('button');
+          copyButton.classList.add('copy-button');
+          copyButton.innerHTML = 'Copy';
 
-        copyButton.addEventListener('click', async () => {
-          const jsonText = document.getElementById('display').innerHTML;
-          try {
-            await navigator.clipboard.writeText(jsonText);
-            // alert('Content copied to clipboard');
-          } catch (err) {
-            alert('Failed to copy: ', err);
-          }
-        });
+          document.querySelector('.display-box').appendChild(copyButton);
 
-        //a textarea to paste the copied json
-        const pasteInput = document.createElement('textarea');
-        pasteInput.placeholder = 'Paste here or in any document...'
-        pasteInput.classList.add('paste-text');
-        document.querySelector('.display-box').appendChild(pasteInput);
+          copyButton.addEventListener('click', async () => {
+            const jsonText = document.getElementById('display').innerHTML;
+            try {
+              await navigator.clipboard.writeText(jsonText);
+              // alert('Content copied to clipboard');
+            } catch (err) {
+              alert('Failed to copy: ', err);
+            }
+          });
+        }
+
+        if(!pasteInputExists && pasteButtonCounts < 1) {
+          pasteButtonCounts++;
+          //a textarea to paste the copied json
+          const pasteInput = document.createElement('textarea');
+          pasteInput.placeholder = 'Paste here or in any document...'
+          pasteInput.classList.add('paste-text');
+          document.querySelector('.display-box').appendChild(pasteInput);
+        }
       });
     </script>
   </body>
