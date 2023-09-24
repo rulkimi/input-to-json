@@ -5,70 +5,156 @@
     <style>
       @import url('https://fonts.cdnfonts.com/css/cascadia-code');
 
-      .json-element {
-        font-family: 'Cascadia code', sans-serif;
-        /*json format white space */
-        white-space: pre-wrap;
-      }
-      .display-box {
-        border-radius: 8px;
-        width: 350px;
-        box-shadow: 
-          rgba(50, 50, 93, 0.15) 0px 30px 60px -12px inset,
-          rgba(0, 0, 0, 0.1) 0px 18px 36px -18px inset;
-      }
-      
-      .input-rows {
-        display: grid;
+      @import url('https://fonts.cdnfonts.com/css/cascadia-code');
+
+      body {
+        font-size: 1.5rem;
       }
 
-      .row .object, .row .value {
-        padding: 5px;
-        margin-bottom: 10px;
+      .json-element {
+        font-family: 'Cascadia code', sans-serif;
+        /* JSON format white space */
+        white-space: pre-wrap;
+      }
+
+      .display-box {
+        border-radius: 1rem;
+        width: 80vw;
+        max-width: 300vw; 
+        margin: 0 auto; 
+        box-shadow:
+          rgba(50, 50, 93, 0.15) 0px 5vw 10vw -2vw inset,
+          rgba(0, 0, 0, 0.1) 0px 2vw 4vw -1vw inset;
+      }
+
+      .row {
+        display: grid;
+        column-gap: 2vw;
+      }
+
+      .row {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+        margin-bottom: 2vw;
+      }
+
+      .object,
+      .value {
+        flex: 1; 
+        padding: 1.5vw; 
+        font-size: 1.5rem;
         border: none;
-        border-radius: 8px;
-        box-shadow: 
+        border-radius: 1rem;
+        box-shadow:
           rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
           rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
       }
 
+      button {
+        font-size: 1.5rem;
+      }
+
       .generate-json-button {
         background-color: #2c974b;
+        color: white;
       }
+
+      .generate-json-button:active {
+        background-color: #226635;
+      }
+
       .copy-button {
-        margin-left: 10px;
+        margin-left: 2vw; 
         cursor: pointer;
       }
-      .copy-button:active {
+
+      .copy-button:active, .add-row-button:active {
         background-color: rgb(206, 206, 206);
       }
-      .generate-json-button, .add-row-button, .copy-button {
+
+      .generate-json-button,
+      .add-row-button,
+      .copy-button {
         border: solid 1px;
         border-color: #1b1f2326;
-        padding: 5px;
-        border-radius: 8px;
+        padding: 2vw; 
+        border-radius: 1rem;
+        cursor: pointer;
       }
+
       .paste-text {
         display: block;
         font-family: 'Cascadia code', sans-serif;
-        height: 100px;
+        font-size: 1.5rem;
+        height: 40vw; 
         width: 90%;
-        margin-top: 10px;
-        margin-left: 10px;
+        margin-top: 2vw; 
+        margin-left: 2vw;
       }
+
+      /* Default styles for larger screens */
+      .container {
+        max-width: 80vw; 
+        margin: 0 auto; 
+        padding: 4vw;
+      }
+
+      /* Media query for screens with a maximum width of 600px (typical for phones) */
+      @media (max-width: 600px) {
+        .container {
+          max-width: 100%; 
+          padding: 2vw; 
+        }
+
+        /* Add specific styles for smaller screens here */
+        .row {
+          flex-direction: column; 
+          align-items: stretch;
+        }
+
+        .object,
+        .value {
+          width: 100%; 
+          margin-bottom: 2vw; 
+        }
+
+        button {
+          display: flex; 
+          flex-direction: row; 
+          justify-content: space-between; 
+        }
+
+        .generate-json-button,
+        .add-row-button,
+        .copy-button {
+          flex: 1; 
+          margin: 0 2vw; 
+          font-size: 2.5rem;
+        }
+
+        .paste-text {
+          height: 30vw; 
+          margin-top: 2vw; 
+          margin-left: 2vw; 
+        }
+      }
+
     </style>
   </head>
   <body>
-    <div id="inputRows" class="input-rows">
-      <div class="row">
-        <input type="text" class="object">
-        <input type="text" class="value">
+    <div class="container">
+      <div id="inputRows" class="input-rows">
+        <div class="row">
+          <input type="text" class="object">
+          <input type="text" class="value">
+        </div>
       </div>
-    </div>
-    <button id="addRow" class="add-row-button">Add row</button>
-    <button id="generateJson" class="generate-json-button">Generate JSON</button>
-    <div class="display-box">
-      <p id="display"  class="json-element"></p></body></html></pre>
+      <button id="addRow" class="add-row-button">Add row</button>
+      <button id="generateJson" class="generate-json-button">Generate JSON</button>
+      <div class="display-box">
+        <p id="display"  class="json-element"></p></body></html></pre>
+      </div>
     </div>
     <script>
       document.getElementById('addRow').addEventListener('click', () => {
